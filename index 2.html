@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine Week for Nandhu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      color: #e91e63;
+    }
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+    button {
+      background: #e91e63;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .no-btn {
+      position: absolute;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <img id="dayImage" src="public/images/photo1.jpg" alt="Valentine Day"/>
+    <h1 id="dayTitle">Happy Rose Day, Nandhu 🌹</h1>
+    <p id="dayMessage">Every rose reminds me of how special you are.</p>
+    <label id="consentBox">
+      <input type="checkbox" id="consent"/>
+      I consent to move to the next day
+    </label>
+    <div id="buttons">
+      <button id="nextBtn" onclick="nextDay()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const days = [
+      { title: "Happy Rose Day, Nandhu 🌹", image: "public/images/photo1.jpg", message: "Every rose reminds me of how special you are." },
+      { title: "Happy Propose Day, Nandhu 💍", image: "public/images/photo2.jpg", message: "If I had to choose again, I’d still choose you." },
+      { title: "Happy Chocolate Day, Nandhu 🍫", image: "public/images/photo3.jpg", message: "Life with you is sweeter than chocolate." },
+      { title: "Happy Teddy Day, Nandhu 🧸", image: "public/images/photo4.jpg", message: "I wish I could hug you like this teddy every day." },
+      { title: "Happy Promise Day, Nandhu 🤝", image: "public/images/photo5.jpg", message: "I promise to stand by you, always." },
+      { title: "Happy Hug Day, Nandhu 🤗", image: "public/images/photo6.jpg", message: "A hug from you feels like home." },
+      { title: "Happy Kiss Day, Nandhu 💋", image: "public/images/photo7.jpg", message: "A kiss from you is my favorite moment." },
+      { title: "Happy Valentine’s Day, Nandhu ❤️", image: "public/images/photo8.jpg", message: "You are the best part of my life." },
+      { title: "Nandhu, Will You Be Mine? 💖", image: "public/images/photo8.jpg", message: "From the first smile to this moment, you’ve made my world brighter. I, Akshay, promise to cherish you, respect you, and stand beside you always. Will you be my Valentine today and forever?" }
+    ];
+
+    let index = 0;
+
+    function nextDay() {
+      const consent = document.getElementById("consent");
+      if (!consent.checked) {
+        alert("Please give consent to continue ❤️");
+        return;
+      }
+      index++;
+      if (index >= days.length) index = days.length - 1;
+      updatePage();
+      consent.checked = false;
+    }
+
+    function updatePage() {
+      const day = days[index];
+      document.getElementById("dayTitle").innerText = day.title;
+      document.getElementById("dayImage").src = day.image;
+      document.getElementById("dayMessage").innerText = day.message;
+
+      if (index === days.length - 1) {
+        document.getElementById("consentBox").style.display = "none";
+        const buttons = document.getElementById("buttons");
+        buttons.innerHTML = `
+          <button onclick="sayYes()">Yes ❤️</button>
+          <button class="no-btn" id="noBtn" onmouseover="moveNo()">No 😢</button>
+        `;
+      }
+    }
+
+    function sayYes() {
+      alert("You just made me the happiest person alive, Nandhu! — Love, Akshay ❤️");
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      const card = document.getElementById("card");
+      const cardRect = card.getBoundingClientRect();
+      const x = Math.random() * (cardRect.width - 80);
+      const y = Math.random() * (cardRect.height - 40);
+      btn.style.left = x + "px";
+      btn.style.top = y + "px";
+    }
+  </script>
+</body>
+</html>
